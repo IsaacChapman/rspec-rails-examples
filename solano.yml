@@ -1,7 +1,8 @@
 ruby_version: '2.2.3'
 bundler_version: '1.15.4'
 firefox: '45.0.1esr'
-nodejs.version: '6.11.3' # Node is not used in the repo except for incremental caching example purposes
+nodejs:
+  version: '6.11.3' # Node is not used in the repo except for incremental caching example purposes
 mysql:
   adapter: mysql2
   version: '5.7'

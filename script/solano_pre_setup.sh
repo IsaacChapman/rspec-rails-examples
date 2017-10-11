@@ -28,7 +28,7 @@ hash_keys_match() {
 
 run_setup_task() {
   key=$1
-  echo "`date` - '$key' setup task started"
+  echo "NOTICE: `date -u '+%Y-%m-%d %H:%M:%S UTC'` - '$key' setup task started"
   time_start=`date +%s`
   case "$key" in
   	bundle)
@@ -50,7 +50,7 @@ run_setup_task() {
       ;;
    esac
    time_end=`date +%s`
-   echo "`date` - '$key' setup task completed in $((time_end - time_start)) second[s]"
+   echo "NOTICE: `date -u '+%Y-%m-%d %H:%M:%S UTC'` - '$key' setup task completed in $((time_end - time_start)) second[s]"
 }
 
 for key in bundle node db; do
