@@ -29,6 +29,7 @@ group :development, :test do
   gem 'selenium-webdriver', '2.53.4' # used by JavaScript-dependent feature specs (`js: true`)
   gem 'spring' # Spring background-runs app in dev for speed
   gem 'spring-commands-rspec' # Enable Spring for RSpec
+  gem 'rspec_junit_formatter'
 end
 
 group :development do
