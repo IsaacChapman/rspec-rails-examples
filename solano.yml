@@ -1,23 +1,43 @@
 ruby_version: '2.2.3'
 bundler_version: '1.15.4'
 firefox: '45.0.1esr'
-
-sqlite: true
+nodejs.version: '6.11.3' # Node is not used in the repo except for incremental caching example purposes
+mysql:
+  adapter: mysql2
+  version: '5.7'
+  config:
+    encoding: utf8
 
 environment:
   'RAILS_ENV': 'test'
 
+skip_package:
+  - ruby # 'bundle install' will be handled by 'hooks.pre_setup'
+
 hooks:
-  #pre_setup: |
-  #  set -e
-  #  # Install geckodriver
-  #  if [ ! -f $HOME/geckodriver ]; then
-  #    (
-  #      mkdir -p $HOME/bin
-  #      cd $HOME/bin
-  #      wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
-  #      tar xzf geckodriver-v0.19.0-linux64.tar.gz
-  #      rm -f geckodriver-v0.19.0-linux64.tar.gz
-  #    )
-  #  fi
-  worker_setup: bundle exec rake db:migrate
+  pre_setup: ./script/solano_pre_setup.sh # Runs db/bundle/node setup as necessary
+  worker_setup: |
+    # Load database dumped by 'pre_setup' if necessary
+    if [ $(mysql -N -s mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD -e "SELECT COUNT(*) from information_schema.tables WHERE table_schema = '$TDDIUM_DB_NAME';") -eq 0 ]; then
+      mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD $TDDIUM_DB_NAME < $TDDIUM_REPO_ROOT/tmp/db_dump.sql || exit $?
+    fi
+
+cache:
+  # Changes in certain directories/files trigger that portion of the cache to be rebuilt
+  update_scripts:
+    database:
+      key_script: ./script/calculate_key_hash.sh db db
+      paths:
+        - REPO/tmp/db_dump.sql
+    bundle:
+      key_script: ./script/calculate_key_hash.sh bundle Gemfile Gemfile.lock
+      paths:
+        - HOME/bundle
+        - HOME/.gem
+    node:
+      key_script: ./script/calculate_key_hash.sh node package.json
+      paths:
+        - REPO/node_modules
+  key_paths: [] # Unset default value
+  save_paths:
+    - HOME/cache-keys # Store computed cache keys for comparison in later builds

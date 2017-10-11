@@ -10,6 +10,12 @@
 # Ignore ruby version config.
 /.ruby-version
 
+# Ignore vendor gems
+/vendor
+
+# Ignore npm packages
+/node_modules
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal

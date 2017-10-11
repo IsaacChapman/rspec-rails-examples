@@ -1,0 +1,22 @@
+{
+  "name": "rspec-rails-examples",
+  "version": "0.0.1",
+  "description": "Example to demonstrate node_modules incremental caching",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacChapman/rspec-rails-examples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsaacChapman/rspec-rails-examples/issues"
+  },
+  "homepage": "https://github.com/IsaacChapman/rspec-rails-examples#readme",
+  "dependencies": {
+    "request": "^2.83.0"
+  }
+}
