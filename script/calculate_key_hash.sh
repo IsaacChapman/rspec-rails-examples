@@ -1,6 +1,11 @@
 #!/bin/bash
+# Calculate the md5sum hash of files and directory contents
+# for Solano CI incremental caching
+# http://docs.solanolabs.com/Beta/incremental-caching/
 
-# Ensure any errors lead to a unique output to bust the cache
+# Usage: $0 key-name FILE|DIR [FILE|DIR ...]
+
+# Ensure any errors lead to a unique output to invalidate the cache
 set -o errexit -o errtrace
 error_handler() {
   echo "ERROR on line ${1}. Exit code: ${2}. TS: `date +%s.%N`"
@@ -8,7 +13,7 @@ error_handler() {
 }
 trap 'error_handler ${LINENO} ${$?}' ERR
 
-# First argument is cache identifier
+# First argument is cache component identifier/key. Ensure one is supplied.
 if [ -z "$1" ]; then
   echo "${0}: Cache identifier argument not supplied"
   error_handler $((LINENO - 2)) 1
