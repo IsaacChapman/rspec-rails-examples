@@ -26,7 +26,7 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'puffing-billy'
   gem 'rspec-rails', '~> 3.2'
-  gem 'selenium-webdriver' # used by JavaScript-dependent feature specs (`js: true`)
+  gem 'selenium-webdriver', '2.53.4' # used by JavaScript-dependent feature specs (`js: true`)
   gem 'spring' # Spring background-runs app in dev for speed
   gem 'spring-commands-rspec' # Enable Spring for RSpec
 end

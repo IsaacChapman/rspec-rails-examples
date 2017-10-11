@@ -212,9 +212,10 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-    selenium-webdriver (3.6.0)
+    selenium-webdriver (2.53.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
+      websocket (~> 1.0)
     shoulda-matchers (3.0.1)
       activesupport (>= 4.0.0)
     slop (3.6.0)
@@ -254,6 +255,7 @@ GEM
     webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
+    websocket (1.2.4)
     websocket-driver (0.6.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -284,7 +286,7 @@ DEPENDENCIES
   rails (= 4.2.3)
   rspec-rails (~> 3.2)
   sass-rails (~> 4.0)
-  selenium-webdriver
+  selenium-webdriver (= 2.53.4)
   shoulda-matchers (= 3.0.1)
   spring
   spring-commands-rspec

@@ -1,6 +1,6 @@
-ruby_version: '2.2.2'
+ruby_version: '2.2.3'
 bundler_version: '1.15.4'
-firefox: '52.0esr'
+firefox: '45.0.1esr'
 
 sqlite: true
 
@@ -8,16 +8,16 @@ environment:
   'RAILS_ENV': 'test'
 
 hooks:
-  pre_setup: |
-    set -e
-    # Install geckodriver
-    if [ ! -f $HOME/geckodriver ]; then
-      (
-        mkdir -p $HOME/bin
-        cd $HOME/bin
-        wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
-        tar xzf geckodriver-v0.19.0-linux64.tar.gz
-        rm -f geckodriver-v0.19.0-linux64.tar.gz
-      )
-    fi
+  #pre_setup: |
+  #  set -e
+  #  # Install geckodriver
+  #  if [ ! -f $HOME/geckodriver ]; then
+  #    (
+  #      mkdir -p $HOME/bin
+  #      cd $HOME/bin
+  #      wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+  #      tar xzf geckodriver-v0.19.0-linux64.tar.gz
+  #      rm -f geckodriver-v0.19.0-linux64.tar.gz
+  #    )
+  #  fi
   worker_setup: bundle exec rake db:migrate
