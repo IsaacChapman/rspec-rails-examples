@@ -74,4 +74,7 @@ cache:
     # - HOME/usercache
 
 tests:
-  - bundle exec rspec  --format RspecJunitFormatter  --out reports/$TDDIUM_TEST_EXEC_ID-rspec.xml
+  - type: junit
+    command: bundle exec rspec  --format RspecJunitFormatter  --out reports/$TDDIUM_TEST_EXEC_ID-rspec.xml
+    report_files:
+      - reports/*-rspec.xml
