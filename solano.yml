@@ -81,7 +81,7 @@ test_pattern:
 tests:
   - type: junit
     mode: parallel
-    command: bundle exec ./script/solano_rspec_runner.rb
+    command: bundle exec ruby ./script/solano_rspec_runner.rb
     files:
       - spec/**/*_spec.rb
       #- exclude: spec/support/email_spec.rb
