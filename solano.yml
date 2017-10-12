@@ -78,11 +78,13 @@ tests:
     mode: parallel
     command: |
       set -o errexit -o pipefail # Exit on error
-      bundle exec rspec  --format RspecJunitFormatter  --out reports/$TDDIUM_TEST_EXEC_ID-rspec.xml
+      bundle exec rspec  --format RspecJunitFormatter  --out reports/$TDDIUM_TEST_EXEC_ID-rspec.xml $@
       if ls reports/*-rspec.xml; then
         cp reports/*-rspec.xml $HOME/results/$TDDIUM_SESSION_ID/session/
       fi
     files:
       - spec/**/*_spec.rb
+      - exclude: spec/support/email_spec.rb
     report_files:
       - reports/*-rspec.xml
+  - bundle exec rspec spec/support/email_spec.rb
