@@ -49,14 +49,14 @@ if ! files_exist then
 end
 
 # Record XML file name
-xml_report_file = "reports/#{Time.now.to_f}.xml"
+xml_report_file = "#{Time.now.to_f}.xml"
 
 # Run the assigned tests with preferred+required arguments:
-cmd = `rspec --order defined --backtrace --color --tty --format RspecJunitFormatter --out #{xml_report_file} #{ARGV.join(" ")}`
+cmd = `rspec --order defined --backtrace --color --tty --format RspecJunitFormatter --out reports/#{xml_report_file} #{ARGV.join(" ")}`
 exit_status = $?.exitstatus
 
-if ! ENV['TDDIUM'].nil? && ENV['TDDIUM'].is_set? then
-  FileUtils.cp xml_report_file, "#{ENV['HOME']}/results/#{ENV['TDDIUM_SESSION_ID']}/session/#{xml_report_file}"
+if ! ENV['TDDIUM'].nil? then
+  FileUtils.cp "reports/#{xml_report_file}", "#{ENV['HOME']}/results/#{ENV['TDDIUM_SESSION_ID']}/session/#{xml_report_file}"
   # TEMP
   `env | sort > #{ENV['HOME']}/results/#{ENV['TDDIUM_SESSION_ID']}/session/#{xml_report_file}-env.txt`
 end
