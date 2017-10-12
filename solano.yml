@@ -73,6 +73,10 @@ cache:
     # Include ~/usercache if other build artifacts/dependencies are stored there
     # - HOME/usercache
 
+# Instead of using Solano CI's built-in ruby test runner, use parallel junit
+# http://docs.solanolabs.com/ConfiguringLanguage/java/#parallel-junit
+test_pattern:
+  - none
 tests:
   - type: junit
     mode: parallel
