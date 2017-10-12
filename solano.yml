@@ -75,6 +75,9 @@ cache:
 
 tests:
   - type: junit
+    mode: parallel
     command: bundle exec rspec  --format RspecJunitFormatter  --out reports/$TDDIUM_TEST_EXEC_ID-rspec.xml
+    files:
+      - spec/**/*_spec.rb
     report_files:
       - reports/*-rspec.xml
