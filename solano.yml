@@ -35,7 +35,7 @@ hooks:
 
 # Use Solano CI incremental caching to speed up the "prepare" phase of builds
 # http://docs.solanolabs.com/Beta/incremental-caching/
-# The 'script/calculate_key_hash.sh' key_script calculates the md5sum of supplied file/directory arguments
+# The 'script/solano_calculate_cache_key_hash.sh' key_script calculates the md5sum of supplied file/directory arguments
 # and stores them in a known location for comparison in the 'hooks.pre_setup' script
 # Usage: $0 key-name FILE|DIR [FILE|DIR ...]
 cache:
@@ -43,22 +43,22 @@ cache:
   update_scripts:
     database:
       # first 'db' is key name, hash is generated from 'db/' directory contents
-      key_script: ./script/calculate_key_hash.sh db db
+      key_script: ./script/solano_calculate_cache_key_hash.sh db db
       paths:
         - REPO/tmp/db_dump.sql
     bundle:
       # 'bundle' is key name, hash is generated from 'Gemfile[.lock]'' files
-      key_script: ./script/calculate_key_hash.sh bundle Gemfile Gemfile.lock
+      key_script: ./script/solano_calculate_cache_key_hash.sh bundle Gemfile Gemfile.lock
       paths:
         - HOME/bundle
         - HOME/.gem
     node:
       # 'node' is key name, hash is generated from 'package.json' file
-      key_script: ./script/calculate_key_hash.sh node package.json
+      key_script: ./script/solano_calculate_cache_key_hash.sh node package.json
       paths:
         - REPO/node_modules
       # An example incremental cache configuration using 'yarn' instead of 'npm'
-      # key_script: ./script/calculate_key_hash.sh node package.json yarn.lock
+      # key_script: ./script/solano_calculate_cache_key_hash.sh node package.json yarn.lock
       # paths:
       #   - REPO/node_modules
       #   - HOME/.cache/yarn
@@ -69,22 +69,22 @@ cache:
     # Include ~/usercache if other build artifacts/dependencies are stored there
     # - HOME/usercache
 
-# Instead of using Solano CI's built-in ruby test runner, use parallel junit
+# Instead of using Solano CI's built-in ruby test runner, use parallel junit test type:
 # http://docs.solanolabs.com/ConfiguringLanguage/java/#parallel-junit
+# Using a custom parallel test runner may require a larger 'timeout' specified then the default 900 seconds,
+# as the timeout is enforced on the entire test batch.
+# There is a default system limit of 90 minutes (5400 seconds), but you can contact support@solanolabs.com
+# to increase the 'runner_timeout_clamp' on a Solano organization level.
+timeout: 1800
 test_pattern:
   - none
 tests:
   - type: junit
     mode: parallel
-    command: |
-      set -o errexit -o pipefail # Exit on error
-      bundle exec rspec  --format RspecJunitFormatter  --out reports/$TDDIUM_TEST_EXEC_ID-rspec.xml $@
-      if ls reports/*-rspec.xml; then
-        cp reports/*-rspec.xml $HOME/results/$TDDIUM_SESSION_ID/session/
-      fi
+    command: bundle exec ./script/solano_rspec_runner.rb
     files:
       - spec/**/*_spec.rb
-      - exclude: spec/support/email_spec.rb
+      #- exclude: spec/support/email_spec.rb
     report_files:
       - reports/*-rspec.xml
-  - bundle exec rspec spec/support/email_spec.rb
+  #- bundle exec rspec spec/support/email_spec.rb
