@@ -32,10 +32,6 @@ hooks:
     if [ $(mysql -N -s mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD -e "SELECT COUNT(*) from information_schema.tables WHERE table_schema = '$TDDIUM_DB_NAME';") -eq 0 ]; then
       mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD $TDDIUM_DB_NAME < $TDDIUM_REPO_ROOT/tmp/db_dump.sql || exit $?
     fi
-  post_worker: |
-    if ls reports/*-rspec.xml; then
-      mv reports/*-rspec.xml $HOME/results/$TDDIUM_SESSION_ID/session/
-    fi
 
 # Use Solano CI incremental caching to speed up the "prepare" phase of builds
 # http://docs.solanolabs.com/Beta/incremental-caching/
@@ -80,7 +76,12 @@ test_pattern:
 tests:
   - type: junit
     mode: parallel
-    command: bundle exec rspec  --format RspecJunitFormatter  --out reports/$TDDIUM_TEST_EXEC_ID-rspec.xml
+    command: |
+      set -o errexit -o pipefail # Exit on error
+      bundle exec rspec  --format RspecJunitFormatter  --out reports/$TDDIUM_TEST_EXEC_ID-rspec.xml
+      if ls reports/*-rspec.xml; then
+        cp reports/*-rspec.xml $HOME/results/$TDDIUM_SESSION_ID/session/
+      fi
     files:
       - spec/**/*_spec.rb
     report_files:

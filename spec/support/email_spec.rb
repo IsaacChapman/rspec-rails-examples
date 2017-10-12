@@ -1,10 +1,3 @@
-require "rails_helper"
-
-RSpec.describe "email tests", pending: "This is purposefully set to be marked pending/skipped" do
-  it "test for email functionality"
-  it "another test for email functionality"
-end
-
 ### Original file contents below:
 # Installing email_spec:
 
@@ -17,18 +10,18 @@ end
 # end
 
 # 2. Create a file like this one you're reading in spec/support/email_spec.rb:
-#require 'email_spec'
-#
-#RSpec.configure do |config|
-#
-#  config.include EmailSpec::Helpers
-#  config.include EmailSpec::Matchers
-#
-#  config.before(:each) do
-#    reset_mailer # Clears out ActionMailer::Base.deliveries
-#  end
-#
-#end
+require 'email_spec'
+
+RSpec.configure do |config|
+
+  config.include EmailSpec::Helpers
+  config.include EmailSpec::Matchers
+
+  config.before(:each) do
+    reset_mailer # Clears out ActionMailer::Base.deliveries
+  end
+
+end
 
 # 3. Start making use of email_spec helpers and matchers. See specs in this project
 #    for examples.
