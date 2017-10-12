@@ -49,7 +49,7 @@ if ! files_exist then
 end
 
 # Record XML file name
-xml_report_file = "#{Time.now.to_f}.xml"
+xml_report_file = "#{Time.now.to_f}-rspec.xml"
 
 # Run the assigned tests with preferred+required arguments:
 cmd = `rspec --order defined --backtrace --color --tty --format RspecJunitFormatter --out reports/#{xml_report_file} #{ARGV.join(" ")}`
