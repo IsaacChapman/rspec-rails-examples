@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/IsaacChapman/solano_rspec_runner.git
-  revision: a7ad22d633d14773f746eb543894f4b7130de8e8
+  revision: ec928e3309d305cc8e34cf7438a6f77443393c9e
   branch: master
   specs:
     solano_rspec_runner (0.0.1)
