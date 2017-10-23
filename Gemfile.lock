@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/IsaacChapman/solano_rspec_runner.git
+  revision: a7ad22d633d14773f746eb543894f4b7130de8e8
+  branch: master
+  specs:
+    solano_rspec_runner (0.0.1)
+      nokogiri
+      rake
+      rspec
+      rspec_junit_formatter
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -188,6 +199,10 @@ GEM
     rake (10.4.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rspec (3.3.0)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
     rspec-core (3.3.2)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.1)
@@ -292,6 +307,7 @@ DEPENDENCIES
   sass-rails (~> 4.0)
   selenium-webdriver (= 2.53.4)
   shoulda-matchers (= 3.0.1)
+  solano_rspec_runner!
   spring
   spring-commands-rspec
   symmetric-encryption (~> 3.8.1)

@@ -30,6 +30,7 @@ group :development, :test do
   gem 'spring' # Spring background-runs app in dev for speed
   gem 'spring-commands-rspec' # Enable Spring for RSpec
   gem 'rspec_junit_formatter'
+  gem 'solano_rspec_runner', :git => "git://github.com/IsaacChapman/solano_rspec_runner.git", :branch => "master"
 end
 
 group :development do
